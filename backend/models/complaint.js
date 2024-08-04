@@ -1,4 +1,3 @@
-// backend/models/Complaint.js
 const mongoose = require('mongoose');
 
 const complaintSchema = new mongoose.Schema({
@@ -7,9 +6,14 @@ const complaintSchema = new mongoose.Schema({
     ref: 'Student',
     required: true,
   },
-  message: {
+  complaintText: {
     type: String,
     required: true,
+  },
+  status: {
+    type: String,
+    enum: ['Pending', 'In Progress', 'Resolved'],
+    default: 'Pending',
   },
   date: {
     type: Date,

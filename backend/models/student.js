@@ -1,34 +1,41 @@
-// backend/models/Student.js
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const studentSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true,
-  },
   name: {
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  phone: {
+    type: String,
+  },
   roomNumber: {
+    type: Number,
+  },
+  password: {
     type: String,
     required: true,
   },
-  mealSelection: {
-    breakfast: {
-      type: String,
-      default: '',
-    },
-    lunch: {
-      type: String,
-      default: '',
-    },
-    dinner: {
-      type: String,
-      default: '',
-    },
-  },
 });
+
+// Hash password before saving
+studentSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+// Compare password for login
+studentSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model('Student', studentSchema);
