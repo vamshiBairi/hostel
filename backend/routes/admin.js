@@ -55,7 +55,7 @@ router.post(
 
 router.delete('/remove-food-item/:id', authMiddleware.verifyAdmin, removeFoodItem);
 
-router.get('/view-students',authMiddleware.verifyAdmin,viewstudents);
+router.get('/view-students',viewstudents);
 
 router.get('/view-count',authMiddleware.verifyAdmin,viewcount);
 
@@ -64,7 +64,7 @@ router.get('/view-menu',authMiddleware.verifyAdmin,viewMenu);
 router.get('/food-selections', authMiddleware.verifyAdmin, viewFoodSelections);
 
 // View Complaints
-router.get('/complaints', authMiddleware.verifyAdmin, viewComplaints);
+router.get('/complaints', authMiddleware.verifyAdmin,viewComplaints);
 
 
 // Update Complaint Status

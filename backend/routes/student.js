@@ -23,7 +23,7 @@ router.post(
 );
 
 // View Food Menu
-router.get('/view-menu', authMiddleware.verifyStudent, viewMenu);
+router.get('/view-menu', viewMenu);
 
 // Select Meal
 router.post(
@@ -33,7 +33,7 @@ router.post(
     check('foodItem', 'Food item is required').not().isEmpty(),
   ],
   validateRequest,
-  authMiddleware.verifyStudent,
+  
   selectMeal
 );
 
@@ -49,6 +49,6 @@ router.post(
 );
 
 // Receive Announcements
-router.get('/announcements', authMiddleware.verifyStudent, receiveAnnouncements);
+router.get('/announcements', receiveAnnouncements);
 
 module.exports = router;

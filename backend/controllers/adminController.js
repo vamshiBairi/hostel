@@ -30,10 +30,10 @@ const addStudent = async (req, res) => {
 
 // Add Food Item to Menu
 const addFoodItem = async (req, res) => {
-  const { mealType, foodItem, items } = req.body;
+  const { mealType, foodItem, items,url } = req.body;
 
   try {
-    const foodMenu = new FoodMenu({ mealType, foodItem, items });
+    const foodMenu = new FoodMenu({ mealType, foodItem, items ,url});
     await foodMenu.save();
     res.status(201).json({ message: 'Food item added successfully', menuId: foodMenu._id });
   } catch (error) {

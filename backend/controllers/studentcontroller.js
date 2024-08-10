@@ -66,8 +66,6 @@ const selectMeal = async (req, res) => {
     if (!foodMenu) {
       return res.status(404).json({ message: 'Food item not found in the menu' });
     }
-
-    foodMenu.count += 1; // Increment the count
     await foodMenu.save();
 
     // Save the selection
