@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './components/AdminDashboard';
 // import StudentDashboard from './components/StudentDashboard';
 // import Login from './components/Login';
 // import AdminDashboard from './components/AdminDashboard';
@@ -11,11 +11,11 @@ import { Route, Switch } from 'react-router-dom';
 // import ViewComplaints from './components/admin/ViewComplaints';
 // import ViewStudents from './components/admin/ViewStudents';
 // import SelectMeal from './components/student/SelectMeal';
-import ViewAnnouncements from './components/student/ViewAnnouncements';
+// import ViewAnnouncements from './components/student/ViewAnnouncements';
 function App() {
   return (
     <div className="App">
-      <ViewAnnouncements/>
+      <AdminDashboard/>
       <div className="container mt-3">
         {/* <Switch>
           <Route path="/admin" component={AdminDashboard} />

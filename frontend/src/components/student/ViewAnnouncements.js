@@ -19,7 +19,7 @@ function ViewAnnouncements() {
 
   return (
     <div
-      className="d-flex align-items-center justify-content-center"
+      className="d-flex justify-content-center"
       style={{
         background: 'linear-gradient(150deg, #E6F0DC, #94DEA5)',
         minHeight: '100vh',

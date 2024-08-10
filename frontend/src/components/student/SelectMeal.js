@@ -34,7 +34,8 @@ function FoodMenu() {
 
   const renderMealSection = (mealType, mealItems) => (
     <div className="my-4">
-      <h2 className="text-center text-uppercase border border-dark rounded m-8" style={{ color: '#023D54' }}>{mealType}</h2>
+      <div className='d-flex justify-content-center'>
+      <h2 className="text-center mb-4 border-bottom border-dark " style={{ color: '#023D54' ,width:"8rem"}}>{mealType}</h2> </div>
       <div className="container-fluid">
         <div className="row overflow-auto flex-nowrap">
           {mealItems.map((item) => (
