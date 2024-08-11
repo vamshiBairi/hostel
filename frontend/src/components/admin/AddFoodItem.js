@@ -1,47 +1,71 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { FaAppleAlt } from 'react-icons/fa';
+import { MdRestaurantMenu } from 'react-icons/md';
+import { BsCardText } from 'react-icons/bs';
+import { FiLink } from 'react-icons/fi';
 
 function AddFoodItem() {
   const [mealType, setMealType] = useState('');
   const [foodItem, setFoodItem] = useState('');
-  const [itemDescription, setItemDescription] = useState('');
+  const [itemDescription, setItemDescription] = useState(['']);
   const [imageUrl, setImageUrl] = useState('');
 
   const handleAddFoodItem = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/admin/add-food-item', { mealType, foodItem, itemDescription, imageUrl });
+      const response = await axios.post('http://localhost:5000/admin/add-food-item', {
+        mealType,
+        foodItem,
+        items:itemDescription,
+        imageUrl
+      });
       console.log(response.data);
     } catch (error) {
       console.error('Adding food item failed', error);
     }
   };
 
+  const handleDescriptionChange = (index, value) => {
+    const updatedDescription = [...itemDescription];
+    updatedDescription[index] = value;
+    setItemDescription(updatedDescription);
+  };
+
+  const handleAddDescriptionField = () => {
+    setItemDescription([...itemDescription, '']);
+  };
+
+  const handleRemoveDescriptionField = (index) => {
+    setItemDescription(itemDescription.filter((_, i) => i !== index));
+  };
+
   return (
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        background: 'linear-gradient(135deg, #C9DABF, #9CA986)',
-        overflowX: 'hidden',
-        padding: '0 15px'
+        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)',
+        minHeight: '100vh',
+        padding: '20px',
+        margin: '0',
       }}
     >
       <div
         className="card p-4 shadow-sm"
         style={{
-          backgroundColor: '#9CA986',
+          backgroundColor: '#94DEA5 ',
           borderRadius: '15px',
           width: '100%',
           maxWidth: '500px'
         }}
       >
-        <h2 className="mb-4 text-center" style={{ color: 'white' }}>
+        <h2 className="mb-4 text-center" style={{ color: '#023D54' }}>
           Add Food Item
         </h2>
         <form onSubmit={handleAddFoodItem}>
           <div className="mb-3">
             <label htmlFor="mealType" className="form-label" style={{ color: 'white' }}>
-              Meal Type
+              <MdRestaurantMenu className="me-2" /> Meal Type
             </label>
             <select
               className="form-control"
@@ -58,7 +82,7 @@ function AddFoodItem() {
           </div>
           <div className="mb-3">
             <label htmlFor="foodItem" className="form-label" style={{ color: 'white' }}>
-              Food Item
+              <FaAppleAlt className="me-2" /> Food Item
             </label>
             <input
               type="text"
@@ -71,22 +95,39 @@ function AddFoodItem() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="itemDescription" className="form-label" style={{ color: 'white' }}>
-              Item Description
+            <label className="form-label" style={{ color: 'white' }}>
+              <BsCardText className="me-2" /> Item Description
             </label>
-            <textarea
-              className="form-control"
-              id="itemDescription"
-              rows="3"
-              placeholder="Enter item description"
-              value={itemDescription}
-              onChange={(e) => setItemDescription(e.target.value)}
-              required
-            ></textarea>
+            {itemDescription.map((desc, index) => (
+              <div key={index} className="d-flex align-items-center mb-2">
+                <input
+                  type="text"
+                  className="form-control me-2"
+                  placeholder={`Description ${index + 1}`}
+                  value={desc}
+                  onChange={(e) => handleDescriptionChange(index, e.target.value)}
+                  required
+                />
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={() => handleRemoveDescriptionField(index)}
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleAddDescriptionField}
+            >
+              Add Another Description
+            </button>
           </div>
           <div className="mb-3">
             <label htmlFor="imageUrl" className="form-label" style={{ color: 'white' }}>
-              Image URL
+              <FiLink className="me-2" /> Image URL
             </label>
             <input
               type="text"
@@ -101,7 +142,7 @@ function AddFoodItem() {
           <button
             type="submit"
             className="btn btn-primary w-100"
-            style={{ backgroundColor: '#3c4542', borderColor: 'black' }}
+            style={{ backgroundColor: '#023D54', borderColor: 'black' }}
           >
             Add Food Item
           </button>

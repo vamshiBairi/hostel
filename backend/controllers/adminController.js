@@ -86,7 +86,7 @@ const viewComplaints = async (req, res) => {
     const complaints = await Complaint.find().populate('studentId', 'name');
     res.status(200).json(complaints);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message:'Error cant fetch' });
   }
 };
 
@@ -127,6 +127,7 @@ const removeFoodItem = async (req, res) => {
 
   try {
     const foodItem = await FoodMenu.findByIdAndDelete(id);
+    console.log(foodItem);
     if (!foodItem) {
       return res.status(404).json({ message: 'Food item not found' });
     }

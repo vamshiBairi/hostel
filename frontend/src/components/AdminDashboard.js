@@ -6,7 +6,7 @@ import ViewStudents from "./admin/ViewStudents";
 import ViewComplaints from "./admin/ViewComplaints";
 import MakeAnnouncement from "./admin/MakeAnnouncements";
 import SelectedFoodAdmin from "./admin/SelectedFood";
-
+import ViewMenu from "./admin/ViewMenu";
 function AdminDashboard() {
   return (
     <div>
@@ -129,6 +129,7 @@ function AdminDashboard() {
       </nav>
 
       <Routes>
+        <Route path="/" element={<ViewMenu />} />
         <Route path="/admin/add-student" element={<AddStudent />} />
         <Route path="/admin/add-food-item" element={<AddFoodItem />} />
         <Route path="/admin/view-students" element={<ViewStudents />} />

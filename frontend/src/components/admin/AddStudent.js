@@ -12,7 +12,7 @@ function AddStudent() {
   const handleAddStudent = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/admin/add-student', { name, email, phone, roomNumber, password });
+      const response = await axios.post('http://localhost:5000/admin/add-student', { name, email, phone, roomNumber, password });
       console.log(response.data);
     } catch (error) {
       console.error('Adding student failed', error);
@@ -23,21 +23,22 @@ function AddStudent() {
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        background: 'linear-gradient(135deg, #C9DABF, #9CA986)',
-        overflowX: 'hidden',
-        padding: '0 15px'
+        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
+        minHeight: '100vh',
+        padding: '20px',
+        margin: '0',
       }}
     >
       <div
         className="card p-4 shadow-sm"
         style={{
-          backgroundColor: '#9CA986',
+          backgroundColor: '#94DEA5 ',
           borderRadius: '15px',
           width: '100%',
           maxWidth: '500px'
         }}
       >
-        <h2 className="mb-4 text-center" style={{ color: 'white' }}>
+        <h2 className="mb-4 text-center" style={{ color: '#023D54' }}>
           Enter Student Details
         </h2>
         <form onSubmit={handleAddStudent}>
@@ -114,7 +115,7 @@ function AddStudent() {
           <button
             type="submit"
             className="btn btn-primary w-100"
-            style={{ backgroundColor: '#3c4542', borderColor: 'black' }}
+            style={{ backgroundColor: '#023D54', borderColor: 'black' }}
           >
             Add Student
           </button>

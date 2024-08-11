@@ -10,13 +10,14 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 // Verify Admin Middleware
 const verifyAdmin = (req, res, next) => {
+  try {
   const token = req.header('Authorization').replace('Bearer ', '');
 
   if (!token) {
     return res.status(401).json({ message: 'No token, authorization denied' });
   }
 
-  try {
+  
     const decoded = jwt.verify(token, JWT_SECRET);
     if (decoded.isAdmin) {
       req.isAdmin = true;

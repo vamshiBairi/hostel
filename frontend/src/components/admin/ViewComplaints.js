@@ -8,7 +8,7 @@ function ViewComplaints() {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/complaints');
+        const response = await axios.get('http://localhost:5000/admin/complaints',);
         const sortedComplaints = response.data.sort((a, b) => {
           if (a.status === 'Resolved' && b.status !== 'Resolved') return 1;
           if (a.status !== 'Resolved' && b.status === 'Resolved') return -1;

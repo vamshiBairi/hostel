@@ -40,7 +40,7 @@ router.post(
     check('password', 'Password must be 6 or more characters').isLength({ min: 6 }),
   ],
   validateRequest,
-  authMiddleware.verifyAdmin,
+  // authMiddleware.verifyAdmin,
   addStudent
 );
 
@@ -52,17 +52,17 @@ router.post(
     check('foodItem', 'Food item is required').not().isEmpty(),
   ],
   validateRequest,
-  authMiddleware.verifyAdmin,
+  // authMiddleware.verifyAdmin,
   addFoodItem
 );
 
-router.delete('/remove-food-item/:id', authMiddleware.verifyAdmin, removeFoodItem);
+router.delete('/remove-food-item/:id', removeFoodItem);
 
 router.get('/view-students',viewstudents);
 
-router.get('/view-count',authMiddleware.verifyAdmin,viewcount);
+router.get('/view-count',viewcount);
 
-router.get('/view-menu',authMiddleware.verifyAdmin,viewMenu);
+router.get('/view-menu',viewMenu);
 // View Food Selections
 router.get('/selected-food', async (req, res) => {
   try {
@@ -81,12 +81,12 @@ router.get('/selected-food', async (req, res) => {
     res.json(foodSelectionSummary);
   } catch (error) {
     console.error('Failed to fetch food selection summary', error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(error);
   }
 });
 
 // View Complaints
-router.get('/complaints', authMiddleware.verifyAdmin,viewComplaints);
+router.get('/complaints',viewComplaints);
 
 
 // Update Complaint Status
@@ -94,7 +94,7 @@ router.put(
   '/update-complaint-status/:id',
   [check('status', 'Status is required').isIn(['Pending', 'In Progress', 'Resolved'])],
   validateRequest,
-  authMiddleware.verifyAdmin,
+  
   updateComplaintStatus
 );
 
@@ -106,7 +106,7 @@ router.post(
     check('content', 'Content is required').not().isEmpty(),
   ],
   validateRequest,
-  authMiddleware.verifyAdmin,
+  
   makeAnnouncement
 );
 

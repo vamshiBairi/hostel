@@ -25,7 +25,7 @@ function ViewStudents() {
 
   return (
     <div
-      className="d-flex align-items-center justify-content-center"
+      className="d-flex justify-content-center"
       style={{
         background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
         minHeight: '100vh',
@@ -45,7 +45,7 @@ function ViewStudents() {
         ) : error ? (
           <div className="text-center text-danger">{error}</div>
         ) : (
-          <table className="table table-bordered table-hover">
+          <table className="table table-bordered d-fex justify-content-center">
             <thead>
               <tr style={{ backgroundColor: '#3c4542', color: 'white' }}>
                 

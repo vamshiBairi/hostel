@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { AiOutlineFontSize } from 'react-icons/ai'; 
+import { FaBullhorn } from 'react-icons/fa';
 
 function MakeAnnouncement() {
   const [title, setTitle] = useState("");
@@ -8,7 +10,7 @@ function MakeAnnouncement() {
   const handleMakeAnnouncement = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("/admin/make-announcement", {
+      const response = await axios.post("http://localhost:5000/admin/make-announcement", {
         title,
         content,
       });
@@ -23,19 +25,20 @@ function MakeAnnouncement() {
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        background: "linear-gradient(135deg, #C9DABF, #9CA986)",
-        height:"100%",
-        width:"100%"    // Add padding to ensure the card doesn't touch the edges
+        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
+        minHeight: '100vh',
+        padding: '20px',
+        margin: '0',
       }}
     >
       
       <div
         className="card p-4 shadow-sm"
         style={{
-          backgroundColor: "#9CA986",
-          borderRadius: "15px",
-          width: "100%",
-          maxWidth: "500px"
+          backgroundColor: '#94DEA5 ',
+          borderRadius: '15px',
+          width: '100%',
+          maxWidth: '500px'
         }}
       >
         <h2 className="mb-4 text-center" style={{ color: "white" }}>
@@ -48,7 +51,7 @@ function MakeAnnouncement() {
               className="form-label"
               style={{ color: "white" }}
             >
-              Title
+              <AiOutlineFontSize className="me-2" style={{color:'#023D54'}}/>Title
             </label>
             <input
               type="text"
@@ -65,7 +68,7 @@ function MakeAnnouncement() {
               className="form-label"
               style={{ color: "white" }}
             >
-              Announce Below
+              <FaBullhorn className="me-2" style={{color:'#023D54',rotate:'-30deg'}}/>Announce Below
             </label>
             <textarea
               className="form-control"
@@ -80,7 +83,7 @@ function MakeAnnouncement() {
             type="submit"
             className="btn btn-primary w-100"
             style={{
-              backgroundColor: "#3c4542",
+              backgroundColor: "#023D54",
               borderColor: "black",
             }}
           >
