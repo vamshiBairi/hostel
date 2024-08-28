@@ -7,7 +7,7 @@ import ViewComplaints from "./admin/ViewComplaints";
 import MakeAnnouncement from "./admin/MakeAnnouncements";
 import SelectedFoodAdmin from "./admin/SelectedFood";
 import ViewMenu from "./admin/ViewMenu";
-function AdminDashboard() {
+function  AdminDashboard() {
   return (
     <div>
       <nav
@@ -38,7 +38,7 @@ function AdminDashboard() {
             <li className="nav-item">
               <Link
                 className="nav-link mx-2"
-                to="/"
+                to="/admin"
                 style={{ color: "#023D54", fontWeight: "bold" }}
               >
                 Home
@@ -48,7 +48,7 @@ function AdminDashboard() {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/selected-food"
+                to="/admin/selected-food"
                 style={{ color: "#023D54", fontWeight: "bold" }}
               >
                 Food
@@ -58,7 +58,7 @@ function AdminDashboard() {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                to="/complaints"
+                to="/admin/complaints"
                 style={{ color: "#023D54", fontWeight: "bold" }}
               >
                 Complaints
@@ -127,15 +127,15 @@ function AdminDashboard() {
           </ul>
         </div>
       </nav>
-
+      {/* <ViewMenu/> */}
       <Routes>
         <Route path="/" element={<ViewMenu />} />
-        <Route path="/admin/add-student" element={<AddStudent />} />
-        <Route path="/admin/add-food-item" element={<AddFoodItem />} />
-        <Route path="/admin/view-students" element={<ViewStudents />} />
+        <Route path="/add-student" element={<AddStudent />} />
+        <Route path="/add-food-item" element={<AddFoodItem />} />
+        <Route path="/view-students" element={<ViewStudents />} />
         <Route path="/complaints" element={<ViewComplaints />} />
         <Route path="/selected-food" element={<SelectedFoodAdmin />} />
-        <Route path="/admin/make-announcement" element={<MakeAnnouncement />} />
+        <Route path="/make-announcement" element={<MakeAnnouncement />} />
       </Routes>
     </div>
   );

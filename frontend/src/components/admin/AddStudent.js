@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaUser, FaEnvelope, FaPhone, FaDoorClosed, FaLock } from 'react-icons/fa';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddStudent() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -10,11 +11,19 @@ function AddStudent() {
   const [password, setPassword] = useState('');
 
   const handleAddStudent = async (e) => {
+    const token = localStorage.getItem('token');
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/admin/add-student', { name, email, phone, roomNumber, password });
+      const response = await axios.post('http://localhost:5000/admin/add-student', { name, email, phone, roomNumber, password }, { headers: { Authorization: `Bearer ${token}` }});
+      toast.success('Successfully Added');
       console.log(response.data);
+      setName('');
+      setPassword('');
+      setRoomNumber('');
+      setPhone('');
+      setEmail('');
     } catch (error) {
+      toast.error('Failed student already exist');
       console.error('Adding student failed', error);
     }
   };
@@ -25,6 +34,7 @@ function AddStudent() {
       style={{
         background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
         minHeight: '100vh',
+        width :'100%',
         padding: '20px',
         margin: '0',
       }}
@@ -121,6 +131,8 @@ function AddStudent() {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

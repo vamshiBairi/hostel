@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { AiOutlineFontSize } from 'react-icons/ai'; 
 import { FaBullhorn } from 'react-icons/fa';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function MakeAnnouncement() {
+  const token = localStorage.getItem('token');
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -13,9 +15,13 @@ function MakeAnnouncement() {
       const response = await axios.post("http://localhost:5000/admin/make-announcement", {
         title,
         content,
-      });
+      }, { headers: { Authorization: `Bearer ${token}` }});
       console.log(response.data);
+      toast.success('Success');
+      setTitle('');
+      setContent('');
     } catch (error) {
+      toast.error('Error');
       console.error("Making announcement failed", error);
     }
   };
@@ -92,6 +98,8 @@ function MakeAnnouncement() {
         </form>
       </div>
     </div>
+    <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </>
   );
 }

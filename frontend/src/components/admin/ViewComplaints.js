@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ViewComplaints() {
+  const token = localStorage.getItem('token');
   const [complaints, setComplaints] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState({});
 
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/complaints',);
+        const response = await axios.get('http://localhost:5000/admin/complaints', { headers: { Authorization: `Bearer ${token}` }});
         const sortedComplaints = response.data.sort((a, b) => {
           if (a.status === 'Resolved' && b.status !== 'Resolved') return 1;
           if (a.status !== 'Resolved' && b.status === 'Resolved') return -1;
@@ -35,7 +37,7 @@ function ViewComplaints() {
     if (!status) return;
 
     try {
-      await axios.put(`http://localhost:5000/admin/update-complaint-status/${id}`, { status });
+      await axios.put(`http://localhost:5000/admin/update-complaint-status/${id}`, { status }, { headers: { Authorization: `Bearer ${token}` }});
       setComplaints((prev) =>
         prev
           .map((complaint) =>
@@ -51,7 +53,9 @@ function ViewComplaints() {
         ...prev,
         [id]: undefined,
       }));
+      toast.success('Success');
     } catch (error) {
+      toast.error('Error in updating');
       console.error('Updating status failed', error);
     }
   };
@@ -115,6 +119,8 @@ function ViewComplaints() {
           </tbody>
         </table>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

@@ -17,7 +17,7 @@ const addStudent = async (req, res) => {
   try {
     const existingStudent = await Student.findOne({ email });
     if (existingStudent) {
-      return res.status(400).json({ message: 'Student already exists' });
+      return res.status(400).json({ error: 'Student already exists' });
     }
 
     const student = new Student({ name, email, phone, roomNumber, password });
@@ -129,7 +129,7 @@ const removeFoodItem = async (req, res) => {
     const foodItem = await FoodMenu.findByIdAndDelete(id);
     console.log(foodItem);
     if (!foodItem) {
-      return res.status(404).json({ message: 'Food item not found' });
+      return res.status(404).json({ error: 'Food item not found' });
     }
     res.status(200).json({ message: 'Food item removed successfully' });
   } catch (error) {

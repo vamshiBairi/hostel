@@ -13,11 +13,9 @@ const verifyAdmin = (req, res, next) => {
   try {
   const token = req.header('Authorization').replace('Bearer ', '');
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token, authorization denied' });
-  }
-
-  
+    if (!token) {
+      return res.status(401).json({ message: 'No token, authorization denied' });
+    }
     const decoded = jwt.verify(token, JWT_SECRET);
     if (decoded.isAdmin) {
       req.isAdmin = true;
@@ -37,12 +35,13 @@ const verifyStudent = (req, res, next) => {
     return res.status(401).json({ message: 'No token, authorization denied' });
   }
 
-  try {
+  try { 
     const decoded = jwt.verify(token, JWT_SECRET);
     req.studentId = decoded.studentId;
+    console.log("token validated");
     next();
   } catch (err) {
-    res.status(401).json({ message: 'Token is not valid' });
+    res.status( 401).json({ error: 'Token is not valid' });
   }
 };
 
@@ -51,7 +50,7 @@ const authenticateAdmin = (req, res) => {
   const { username, password } = req.body;
 
   if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    const token = jwt.sign({ isAdmin: true }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ isAdmin: true }, JWT_SECRET);
     return res.status(200).json({ message: 'Admin login successful', token });
   } else {
     return res.status(401).json({ message: 'Invalid admin credentials' });

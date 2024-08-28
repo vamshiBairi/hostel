@@ -24,12 +24,13 @@ const loginStudent = async (req, res) => {
 
     const isPasswordCorrect = await student.matchPassword(password);
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: 'Invalid password' });
+      return res.status(400).json({ error: 'Invalid password' });
     }
 
-    const token = jwt.sign({ studentId: student._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ studentId: student._id }, JWT_SECRET);
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -57,14 +58,14 @@ const selectMeal = async (req, res) => {
     });
 
     if (existingSelection) {
-      return res.status(400).json({ message: 'You have already selected a meal for this meal type' });
+      return res.status(400).json({ error: 'You have already selected a meal for this meal type' });
     }
 
     // Find the food item in the menu and increment the count
     const foodMenu = await FoodMenu.findOne({ mealType, foodItem });
 
     if (!foodMenu) {
-      return res.status(404).json({ message: 'Food item not found in the menu' });
+      return res.status(404).json({ error: 'Food item not found in the menu' });
     }
     await foodMenu.save();
 
@@ -74,7 +75,8 @@ const selectMeal = async (req, res) => {
 
     res.status(201).json({ message: 'Meal selected successfully', selectionId: selection._id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.log("Error");
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -88,7 +90,7 @@ const raiseComplaint = async (req, res) => {
     await complaint.save();
     res.status(201).json({ message: 'Complaint raised successfully', complaintId: complaint._id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 

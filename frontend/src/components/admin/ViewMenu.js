@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ViewMenu() {
+  const token = localStorage.getItem('token');
   const [foodItems, setFoodItems] = useState([]);
 
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/student/view-menu');
+        const response = await axios.get('http://localhost:5000/admin/view-menu', { headers: { Authorization: `Bearer ${token}` }});
         setFoodItems(response.data);
         console.log(response.data);
       } catch (error) {
@@ -20,15 +22,16 @@ function ViewMenu() {
     fetchFoodItems();
   }, []);
 
-  const handleDeleteMeal = async (mealType, foodItem) => {
+  const handleDeleteMeal = async (id) => {
     try {
-      const response = await axios.post('http://localhost:5000/admin/remove-food-item', { mealType, foodItem });
-      console.log('Meal selected:', response.data);
-      <Alert severity="warning">Success.</Alert>
-
+      const response = await axios.post(`http://localhost:5000/admin/remove-food-item/${id}`,{},{ headers: { Authorization: `Bearer ${token}` }});
+      console.log('Deleted meal:', response.data);
+      toast.success('Success');
+      setFoodItems((prevFoodItems) => prevFoodItems.filter(item => item._id !== id));
+      
     } catch (error) {
-      console.error('Selecting meal failed', error);
-       alert(error);
+      console.error('Deleting meal failed', error);
+      toast.error('Error');
     }
   };
 
@@ -57,7 +60,7 @@ function ViewMenu() {
                   <button
                     className="btn btn-primary mt-auto"
                     style={{ backgroundColor: '#023D54', borderColor: '#023D54' }}
-                    onClick={() => handleDeleteMeal(mealType, item.foodItem)}
+                    onClick={() => handleDeleteMeal(item._id)}
                   >
                     Remove
                   </button>
@@ -87,6 +90,8 @@ function ViewMenu() {
       {renderMealSection('Breakfast', breakfastItems)}
       {renderMealSection('Lunch', lunchItems)}
       {renderMealSection('Dinner', dinnerItems)}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

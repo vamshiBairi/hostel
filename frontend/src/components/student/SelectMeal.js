@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Alert from 'react-bootstrap/Alert';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function FoodMenu() {
+  const token = localStorage.getItem('token'); 
   const [foodItems, setFoodItems] = useState([]);
 
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/student/view-menu');
+        const response = await axios.get('http://localhost:5000/student/view-menu', { headers: { Authorization: `Bearer ${token}` }});
         setFoodItems(response.data);
-        console.log(response.data);
       } catch (error) {
+        toast.error("Please Login ");
         console.error('Fetching food items failed', error);
       }
     };
@@ -21,25 +22,24 @@ function FoodMenu() {
   }, []);
 
   const handleSelectMeal = async (mealType, foodItem) => {
+    
     try {
-      const response = await axios.post('http://localhost:5000/student/select-meal', { mealType, foodItem });
-      console.log('Meal selected:', response.data);
-      <Alert severity="warning">Success.</Alert>
-
+      const response = await axios.post('http://localhost:5000/student/select-meal', { mealType, foodItem }, { headers: { Authorization: `Bearer ${token}` }});
+      toast.success('Meal selected successfully!');
     } catch (error) {
-      console.error('Selecting meal failed', error);
-       alert(error);
+      toast.error("Error in selecting Meal");
     }
   };
 
   const renderMealSection = (mealType, mealItems) => (
     <div className="my-4">
       <div className='d-flex justify-content-center'>
-      <h2 className="text-center mb-4 border-bottom border-dark " style={{ color: '#023D54' ,width:"8rem"}}>{mealType}</h2> </div>
+        <h2 className="text-center mb-4 border-bottom border-dark " style={{ color: '#023D54', width: "8rem" }}>{mealType}</h2>
+      </div>
       <div className="container-fluid">
         <div className="row overflow-auto flex-nowrap">
           {mealItems.map((item) => (
-            <div key={item._id} className="col-md-3 px-2">
+            <div key={item._id} className="col-sm-6 col-md-4 col-lg-3 px-2">
               <div className="card" style={{ width: '18rem' }}>
                 <h5 className="card-title text-center pt-2 border rounded">{item.foodItem.toUpperCase()}</h5>
                 <div className="d-flex justify-content-center">
@@ -57,7 +57,7 @@ function FoodMenu() {
                   <button
                     className="btn btn-primary mt-auto"
                     style={{ backgroundColor: '#023D54', borderColor: '#023D54' }}
-                    onClick={() => handleSelectMeal(mealType, item.foodItem)}
+                    onClick={() => handleSelectMeal(mealType.toLowerCase(), item.foodItem)}
                   >
                     Select {mealType}
                   </button>
@@ -87,6 +87,7 @@ function FoodMenu() {
       {renderMealSection('Breakfast', breakfastItems)}
       {renderMealSection('Lunch', lunchItems)}
       {renderMealSection('Dinner', dinnerItems)}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }

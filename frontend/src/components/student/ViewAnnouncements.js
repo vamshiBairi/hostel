@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ViewAnnouncements() {
   const [announcements, setAnnouncements] = useState([]);
-
+  const token = localStorage.getItem('token');
   useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/student/announcements');
+        const response = await axios.get('http://localhost:5000/student/announcements', { headers: { Authorization: `Bearer ${token}` }});
         setAnnouncements(response.data);
       } catch (error) {
+        toast.error('Please Login ');
         console.error('Fetching announcements failed', error);
       }
     };
@@ -52,7 +54,10 @@ function ViewAnnouncements() {
           </table>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
+    
   );
 }
 

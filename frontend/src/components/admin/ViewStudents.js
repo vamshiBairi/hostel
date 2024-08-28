@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Spinner } from 'react-bootstrap'; // Import Spinner for loading indicator
+import { Spinner } from 'react-bootstrap'; 
 
 function ViewStudents() {
+  const token = localStorage.getItem('token');
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const [error, setError] = useState(null); // Add error state
@@ -10,13 +11,13 @@ function ViewStudents() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/view-students');
+        const response = await axios.get('http://localhost:5000/admin/view-students',{ headers: { Authorization: `Bearer ${token}` }});
         setStudents(response.data);
-        setLoading(false); // Set loading to false after data fetch
+        setLoading(false); 
       } catch (error) {
         console.error('Fetching students failed', error);
         setError('Fetching students failed');
-        setLoading(false); // Set loading to false on error
+        setLoading(false); 
       }
     };
 
@@ -27,8 +28,9 @@ function ViewStudents() {
     <div
       className="d-flex justify-content-center"
       style={{
-        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
+        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', 
         minHeight: '100vh',
+        width:'100%',
         padding: '20px',
         margin: '0',
       }}
@@ -37,7 +39,7 @@ function ViewStudents() {
         <h2 className="text-center mb-4 border border-dark rounded" style={{ color: '#023D54' }}>
           Students Overview
         </h2>
-        {/* Loading and error handling */}
+        {}
         {loading ? (
           <div className="text-center">
             <Spinner animation="border" variant="primary" />

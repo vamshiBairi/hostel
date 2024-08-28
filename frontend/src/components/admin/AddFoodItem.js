@@ -4,7 +4,8 @@ import { FaAppleAlt } from 'react-icons/fa';
 import { MdRestaurantMenu } from 'react-icons/md';
 import { BsCardText } from 'react-icons/bs';
 import { FiLink } from 'react-icons/fi';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function AddFoodItem() {
   const [mealType, setMealType] = useState('');
   const [foodItem, setFoodItem] = useState('');
@@ -12,6 +13,7 @@ function AddFoodItem() {
   const [imageUrl, setImageUrl] = useState('');
 
   const handleAddFoodItem = async (e) => {
+    const token = localStorage.getItem('token');
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/admin/add-food-item', {
@@ -19,9 +21,15 @@ function AddFoodItem() {
         foodItem,
         items:itemDescription,
         imageUrl
-      });
+      }, { headers: { Authorization: `Bearer ${token}` }});
+      toast.success('Successfully Added Food Item');
       console.log(response.data);
+      setMealType('');
+      setFoodItem('');
+      setItemDescription(['']);
+      setImageUrl('');
     } catch (error) {
+      toast.error('Failed to Add');
       console.error('Adding food item failed', error);
     }
   };
@@ -46,6 +54,7 @@ function AddFoodItem() {
       style={{
         background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)',
         minHeight: '100vh',
+        width:'100%',
         padding: '20px',
         margin: '0',
       }}
@@ -148,6 +157,8 @@ function AddFoodItem() {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

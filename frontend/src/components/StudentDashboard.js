@@ -4,6 +4,7 @@ import SelectMeal from './student/SelectMeal';
 import RaiseComplaint from './student/RaiseComplaint';
 import Announcements from './student/ViewAnnouncements';
 import Bottom from './Bottom';
+import { ButtonGroup } from 'react-bootstrap';
 function StudentDashboard() {
 
   return (
@@ -17,18 +18,19 @@ function StudentDashboard() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto ms-auto" >
           <li className="nav-item active">
-            <Link className="nav-link mx-2 " to="/" style={{color:'#023D54',fontWeight: 'bold'}}>Home</Link>
+            <Link className="nav-link mx-2 " to="/student-dashboard/" style={{color:'#023D54',fontWeight: 'bold'}}>Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link mx-2 " to="/raise-complaint" style={{color:'#023D54' , fontWeight: 'bold'}}>RaiseComplaint</Link>
+            <Link className="nav-link mx-2 " to="/student-dashboard/raise-complaint" style={{color:'#023D54' , fontWeight: 'bold'}}>RaiseComplaint</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link  " to="/announcements" style={{color:'#023D54' ,fontWeight: 'bold'}}>Notifications</Link>
+            <Link className="nav-link  " to="/student-dashboard/announcements" style={{color:'#023D54' ,fontWeight: 'bold'}}>Notifications</Link>
           </li>
           <div className='border border-dark border-left m-1  '></div>
           <li className="nav-item">
-            <Link className="nav-link me-2 ml-4 border border-dark rounded p-1 mt-1" to="/"  style={{background:'#f12323' ,color:'black' ,fontWeight: 'bold'}}>LogOut</Link>
+            <button className="me-2 ml-4 border border-dark rounded p-1 mt-1"  style={{background:'#f12323' ,color:'black' ,fontWeight: 'bold'}}>LogOut</button>
           </li>
+          
         </ul>
       </div>
       </nav>

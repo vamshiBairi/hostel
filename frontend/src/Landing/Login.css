@@ -1,11 +1,11 @@
 /* LoginPage.css */
-.container {
+.container1 {
   display: flex;
   height: 100vh;
   font-family: Arial, sans-serif;
 }
 
-.leftSide {
+.leftSide1 {
   width: 40%;
   background-color: #E6F0DC;
   /* display: flex; */
@@ -13,14 +13,14 @@
   justify-content: center;
 }
 
-.image {
+.image1 {
   margin-top: 30%;
   width: 100%;
   height: auto;
   border-radius: 10px;
 }
 
-.rightSide {
+.rightSide1 {
   width: 60%;
   background-color: #FFFFFF;
   display: flex;
@@ -30,33 +30,33 @@
   padding: 20px;
 }
 
-.heading {
+.heading1 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
-.subHeading {
+.subHeading1 {
   font-size: 16px;
   color: #888;
   margin-bottom: 30px;
 }
 
-.form {
+.form1 {
   width: 80%;
 }
 
-.inputGroup {
+.inputGroup1 {
   margin-bottom: 15px;
 }
 
-.input {
+.input1 {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
 }
 
-.button {
+.button1 {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -65,4 +65,11 @@
   color: #FFF;
   font-size: 16px;
   cursor: pointer;
+  
+}
+.button1:hover{
+  background-color: rgb(1, 72, 48);
+  color: antiquewhite;
+  font-weight: 400;
+  font-size: large;
 }
