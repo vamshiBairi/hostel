@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Alert from 'react-bootstrap/Alert';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {  Spinner } from 'react-bootstrap'; 
 function ViewMenu() {
   const token = localStorage.getItem('token');
   const [foodItems, setFoodItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFoodItems = async () => {
@@ -16,19 +16,20 @@ function ViewMenu() {
         console.log(response.data);
       } catch (error) {
         console.error('Fetching food items failed', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchFoodItems();
-  }, []);
+  }, [token]);
 
   const handleDeleteMeal = async (id) => {
     try {
-      const response = await axios.post(`http://localhost:5000/admin/remove-food-item/${id}`,{},{ headers: { Authorization: `Bearer ${token}` }});
+      const response = await axios.post(`http://localhost:5000/admin/remove-food-item/${id}`, {}, { headers: { Authorization: `Bearer ${token}` }});
       console.log('Deleted meal:', response.data);
       toast.success('Success');
       setFoodItems((prevFoodItems) => prevFoodItems.filter(item => item._id !== id));
-      
     } catch (error) {
       console.error('Deleting meal failed', error);
       toast.error('Failed');
@@ -87,11 +88,18 @@ function ViewMenu() {
         margin: '0',
       }}
     >
-      {renderMealSection('Breakfast', breakfastItems)}
-      {renderMealSection('Lunch', lunchItems)}
-      {renderMealSection('Dinner', dinnerItems)}
+      {loading ? (
+        <div className="text-center">
+        <Spinner animation="border" variant="primary" />
+      </div>
+      ) : (
+        <>
+          {renderMealSection('Breakfast', breakfastItems)}
+          {renderMealSection('Lunch', lunchItems)}
+          {renderMealSection('Dinner', dinnerItems)}
+        </>
+      )}
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-
     </div>
   );
 }

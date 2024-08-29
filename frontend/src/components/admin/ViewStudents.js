@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Spinner } from 'react-bootstrap'; 
-
+import { Button, Spinner } from 'react-bootstrap'; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function ViewStudents() {
   const token = localStorage.getItem('token');
   const [students, setStudents] = useState([]);
@@ -23,7 +24,18 @@ function ViewStudents() {
 
     fetchStudents();
   }, []);
-
+const handleDelete=async (id)=>{
+  try {
+    const response = await axios.post(`http://localhost:5000/admin/remove-student/${id}`,{},{ headers: { Authorization: `Bearer ${token}` }});
+    console.log('Deleted Student:', response.data);
+    toast.success('Successfully removed');
+    setStudents((prevStudents) => prevStudents.filter(item => item._id !== id));
+    
+  } catch (error) {
+    console.error('Deleting complaint', error);
+    toast.error('Failed');
+  }
+}
   return (
     <div
       className="d-flex justify-content-center"
@@ -55,6 +67,7 @@ function ViewStudents() {
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Room Number</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -65,12 +78,15 @@ function ViewStudents() {
                   <td>{student.email}</td>
                   <td>{student.phone}</td>
                   <td>{student.roomNumber}</td>
+                  <td><Button className='btn-danger btn-sm' onClick={()=>{handleDelete(student._id)}}>Remove</Button></td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

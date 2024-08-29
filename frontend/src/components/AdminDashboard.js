@@ -50,7 +50,7 @@ function  AdminDashboard() {
           <ul className="navbar-nav mr-auto ms-auto">
             <li className="nav-item">
               <Link
-                className="nav-link mx-2"
+                className="nav-link "
                 to="/admin"
                 style={{ color: "#023D54", fontWeight: "bold" }}
               >

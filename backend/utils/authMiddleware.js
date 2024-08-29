@@ -47,9 +47,9 @@ const verifyStudent = (req, res, next) => {
 
 // Authenticate Admin
 const authenticateAdmin = (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+  if (email === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
     const token = jwt.sign({ isAdmin: true }, JWT_SECRET);
     return res.status(200).json({ message: 'Admin login successful', token });
   } else {

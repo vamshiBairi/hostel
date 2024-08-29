@@ -14,6 +14,8 @@ const {
   viewstudents,
   removeFoodItem,
   viewcount,
+  removeComplaint,
+  removeStudent
 
 } = require('../controllers/adminController');
 const authMiddleware = require('../utils/authMiddleware');
@@ -45,6 +47,9 @@ router.post(
 );
 
 router.post('/remove-food-item/:id',authMiddleware.verifyAdmin, removeFoodItem);
+
+router.post('/remove-complaint/:id',authMiddleware.verifyAdmin, removeComplaint);
+router.post('/remove-student/:id',authMiddleware.verifyAdmin, removeStudent);
 
 router.get('/view-students',authMiddleware.verifyAdmin,viewstudents);
 

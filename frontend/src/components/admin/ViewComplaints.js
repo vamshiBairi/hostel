@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {  Spinner } from 'react-bootstrap'; 
 function ViewComplaints() {
   const token = localStorage.getItem('token');
   const [complaints, setComplaints] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState({});
-
+  const [loading,setLoading]=useState(true);
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
@@ -17,8 +18,10 @@ function ViewComplaints() {
           return new Date(b.date) - new Date(a.date);
         });
         setComplaints(sortedComplaints);
+        setLoading(false);
       } catch (error) {
         console.error('Fetching complaints failed', error);
+        setLoading(false);
       }
     };
 
@@ -31,7 +34,18 @@ function ViewComplaints() {
       [id]: status,
     }));
   };
-
+  const deleteComplaint=async (id)=>{
+    try {
+      const response = await axios.post(`http://localhost:5000/admin/remove-complaint/${id}`,{},{ headers: { Authorization: `Bearer ${token}` }});
+      console.log('Deleted complaint:', response.data);
+      toast.success('Successfully closed complaint');
+      setComplaints((prevComplaint) => prevComplaint.filter(item => item._id !== id));
+      
+    } catch (error) {
+      console.error('Deleting complaint', error);
+      toast.error('Failed');
+    }
+  }
   const handleUpdateStatus = async (id) => {
     const status = selectedStatus[id];
     if (!status) return;
@@ -70,7 +84,12 @@ function ViewComplaints() {
         margin: '0',
       }}
     >
-      <div className="container-fluid">
+      {loading?(
+        <div className="text-center">
+        <Spinner animation="border" variant="primary" />
+      </div>
+      ):(
+        <div className="container-fluid">
         <h2 className="text-center mb-4 border border-dark rounded" style={{ color: '#023D54' }}>Complaints Overview</h2>
         <table className="table table-bordered table-hover">
           <thead>
@@ -80,6 +99,7 @@ function ViewComplaints() {
               <th>Complaint</th>
               <th>Status</th>
               <th>Actions</th>
+              <th>Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -103,6 +123,7 @@ function ViewComplaints() {
                       <option value="Pending">Pending</option>
                       <option value="In Progress">In Progress</option>
                       <option value="Resolved">Resolved</option>
+
                     </select>
                   </td>
                   <td>
@@ -113,12 +134,15 @@ function ViewComplaints() {
                       Update Status
                     </button>
                   </td>
+                  <td><button className="btn btn-danger btn-sm" onClick={()=>deleteComplaint(complaint._id)}>Delete</button></td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
+      )}
+      
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
 
     </div>

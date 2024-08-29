@@ -136,6 +136,35 @@ const removeFoodItem = async (req, res) => {
   }
 };
 
+const removeComplaint = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const Comp = await Complaint.findByIdAndDelete(id);
+    console.log(Comp);
+    if (!Comp) {
+      return res.status(404).json({ error: 'Complaint not found' });
+    }
+    res.status(200).json({ message: 'Complaint removed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const removeStudent = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const stu = await Student.findByIdAndDelete(id);
+    console.log(stu);
+    if (!stu) {
+      return res.status(404).json({ error: 'student not found' });
+    }
+    res.status(200).json({ message: 'Student removed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 module.exports = {
   loginAdmin,
   addStudent,
@@ -148,4 +177,6 @@ module.exports = {
   viewstudents,
   removeFoodItem,
   viewcount,
+  removeComplaint,
+  removeStudent
 };

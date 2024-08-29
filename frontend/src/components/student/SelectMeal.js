@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {  Spinner } from 'react-bootstrap'; 
 
 function FoodMenu() {
   const token = localStorage.getItem('token'); 
   const [foodItems, setFoodItems] = useState([]);
-
+  const [loading,setLoading]=useState(true);
   useEffect(() => {
     const fetchFoodItems = async () => {
       try {
         const response = await axios.get('http://localhost:5000/student/view-menu', { headers: { Authorization: `Bearer ${token}` }});
         setFoodItems(response.data);
+        setLoading(false);
       } catch (error) {
         toast.error("Please Login ");
+        setLoading(false);
         console.error('Fetching food items failed', error);
       }
     };
@@ -88,9 +91,17 @@ function FoodMenu() {
         margin: '0',
       }}
     >
-      {renderMealSection('Breakfast', breakfastItems)}
-      {renderMealSection('Lunch', lunchItems)}
-      {renderMealSection('Dinner', dinnerItems)}
+      {loading ? (
+        <div className="text-center">
+        <Spinner animation="border" variant="primary" />
+      </div>
+      ) : (
+        <>
+        {renderMealSection('Breakfast', breakfastItems)}
+        {renderMealSection('Lunch', lunchItems)}
+        {renderMealSection('Dinner', dinnerItems)}
+        </>
+      )}
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
