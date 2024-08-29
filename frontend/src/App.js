@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route,Routes} from 'react-router-dom';
 import AdminDashboard from './components/AdminDashboard';
+// import adminlogin from './Landing/adminlogin'
+
 import './index.css';
 import StudentDashboard from './components/StudentDashboard';
 // import Login from './components/Login';
@@ -16,6 +18,7 @@ import ViewAnnouncements from './components/student/ViewAnnouncements';
 import LoginPage from './Landing/Login';
 // import Slides from './Landing/';
 // import LoginPage from './Landing/Login';
+import AdminLogin from './Landing/adminlogin';
 function App() {
   return (
     
@@ -23,6 +26,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LoginPage/>}/>
         <Route path="/admin/*" element={<AdminDashboard />} /> 
+        <Route path="/admin-login" element={<AdminLogin/>} /> 
         <Route path="/student-dashboard/*" element={<StudentDashboard />}/>
         {/* Add other routes here */}
       </Routes>

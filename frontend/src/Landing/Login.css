@@ -79,6 +79,24 @@
   font-weight: 400;
   font-size: large;
 }
+.adminLogin {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.adminLoginButton {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.adminLoginButton:hover {
+  color: #0056b3;
+}
+
 
 /* Mobile Styles */
 @media screen and (max-width: 500px) {

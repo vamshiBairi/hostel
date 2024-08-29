@@ -13,18 +13,17 @@ const loginAdmin = (req, res) => {
 // Add New Student
 const addStudent = async (req, res) => {
   const { name, email, phone, roomNumber, password } = req.body;
-
   try {
     const existingStudent = await Student.findOne({ email });
     if (existingStudent) {
-      return res.status(400).json({ error: 'Student already exists' });
+      return res.status(400).json({ message: 'Student already exists' });
     }
 
     const student = new Student({ name, email, phone, roomNumber, password });
     await student.save();
     res.status(201).json({ message: 'Student added successfully', studentId: student._id });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({message: 'Try again later' });
   }
 };
 

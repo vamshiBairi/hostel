@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const LoginPage = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,15 +28,13 @@ const LoginPage = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
-  const navigateToAdminLogin = () => {
-    navigate('/admin-login'); 
-  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/student/login', {
+      const response = await fetch('http://localhost:5000/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,18 +46,20 @@ const LoginPage = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/student-dashboard');
+        navigate('/admin');
         console.log('Login successful');
       } else {
         toast.error(data.message);
-        setError(data.message || 'Login failed');
+        // setError(data.message || 'Login failed');
       }
     } catch (error) {
       toast.error("Login failed");
-      // setError('Something went wrong. Please try again later.');
+      setError('Something went wrong. Please try again later.');
     }
   };
-
+  const navigateToStudent = () => {
+    navigate('/');
+  };
   return (
     <div className="container1">
       <div className="leftSide1">
@@ -108,14 +108,14 @@ const LoginPage = () => {
             </button>
           </div>
           <div className="adminLogin">
-          <p>Are you an admin? <button className="adminLoginButton" onClick={navigateToAdminLogin}>Click Here</button></p>
-      </div>
+          <p>Are you a Student? <button className="adminLoginButton" onClick={navigateToStudent}>Click Here</button></p>
+          </div>
         </form>
-      </div>
       
+      </div>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 };
 
-export default LoginPage;
+export default AdminLogin;
