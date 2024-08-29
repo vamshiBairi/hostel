@@ -22,8 +22,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<LoginPage/>}/>
-        {/* <Route path="/admin/*" element={<AdminDashboard />} />  */}
-        {/* <Route path="/student-dashboard/*" element={<StudentDashboard />}/> */}
+        <Route path="/admin/*" element={<AdminDashboard />} /> 
+        <Route path="/student-dashboard/*" element={<StudentDashboard />}/>
         {/* Add other routes here */}
       </Routes>
       {/* <StudentDashboard/> */}

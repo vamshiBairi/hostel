@@ -31,7 +31,7 @@ function ViewMenu() {
       
     } catch (error) {
       console.error('Deleting meal failed', error);
-      toast.error('Error');
+      toast.error('Failed');
     }
   };
 

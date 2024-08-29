@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link ,useNavigate} from "react-router-dom";
 import AddStudent from "./admin/AddStudent";
 import AddFoodItem from "./admin/AddFoodItem";
 import ViewStudents from "./admin/ViewStudents";
@@ -7,7 +7,20 @@ import ViewComplaints from "./admin/ViewComplaints";
 import MakeAnnouncement from "./admin/MakeAnnouncements";
 import SelectedFoodAdmin from "./admin/SelectedFood";
 import ViewMenu from "./admin/ViewMenu";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function  AdminDashboard() {
+  const navigate = useNavigate();
+  const handlelogout=()=>{
+    localStorage.removeItem('token');
+    toast.success('Successfully logged out');
+    setTimeout(()=>{
+
+      navigate('/');
+    },1000)
+    
+  }
+
   return (
     <div>
       <nav
@@ -112,9 +125,9 @@ function  AdminDashboard() {
 
             <div className="border border-dark border-start m-1"></div>
             <li className="nav-item">
-              <Link
+              <button
                 className="nav-link ms-4 me-2 border border-dark rounded p-1 mt-1"
-                to="/"
+                onClick={handlelogout}
                 style={{
                   background: "#f12323",
                   color: "black",
@@ -122,7 +135,7 @@ function  AdminDashboard() {
                 }}
               >
                 Log Out
-              </Link>
+              </button>
             </li>
           </ul>
         </div>
@@ -137,6 +150,8 @@ function  AdminDashboard() {
         <Route path="/selected-food" element={<SelectedFoodAdmin />} />
         <Route path="/make-announcement" element={<MakeAnnouncement />} />
       </Routes>
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
 }

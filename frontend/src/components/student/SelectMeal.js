@@ -17,17 +17,21 @@ function FoodMenu() {
         console.error('Fetching food items failed', error);
       }
     };
-
     fetchFoodItems();
   }, []);
 
   const handleSelectMeal = async (mealType, foodItem) => {
-    
     try {
       const response = await axios.post('http://localhost:5000/student/select-meal', { mealType, foodItem }, { headers: { Authorization: `Bearer ${token}` }});
-      toast.success('Meal selected successfully!');
+        toast.success(response.data.message);
+      
+      
     } catch (error) {
-      toast.error("Error in selecting Meal");
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Please Try Again Later"); 
+      }
     }
   };
 
@@ -87,7 +91,7 @@ function FoodMenu() {
       {renderMealSection('Breakfast', breakfastItems)}
       {renderMealSection('Lunch', lunchItems)}
       {renderMealSection('Dinner', dinnerItems)}
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }

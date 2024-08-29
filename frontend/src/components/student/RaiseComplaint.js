@@ -16,18 +16,12 @@ function RaiseComplaint() {
         { complaintText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      
       toast.success('Successfully raised');
-
-      // Clear the form (optional)
       setComplaintText('');
-
-     
-
       console.log(response.data);
 
     } catch (error) {
-      toast.error('Please Login');
+      toast.error(error.response.data.message);
       console.error('Raising complaint failed', error);
     }
   };

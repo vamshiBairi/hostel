@@ -23,7 +23,7 @@ function AddStudent() {
       setPhone('');
       setEmail('');
     } catch (error) {
-      toast.error('Failed student already exist');
+      toast.error(error.response.data.message);
       console.error('Adding student failed', error);
     }
   };

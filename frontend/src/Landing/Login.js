@@ -4,7 +4,8 @@ import './Login.css';
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from 'react-router-dom';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,12 +46,14 @@ const LoginPage = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/student-dashboard'); // Redirect to the student dashboard page
+        navigate('/student-dashboard');
         console.log('Login successful');
       } else {
+        toast.error(data.message);
         setError(data.message || 'Login failed');
       }
     } catch (error) {
+      toast.error("Login");
       setError('Something went wrong. Please try again later.');
     }
   };
@@ -58,6 +61,10 @@ const LoginPage = () => {
   return (
     <div className="container1">
       <div className="leftSide1">
+        <div>
+        <h2 className='headingleft'>GoodDay Hostels</h2>
+        </div>
+        <div>
         <Slider {...settings}>
           {images.map((image, index) => (
             <div key={index}>
@@ -65,12 +72,12 @@ const LoginPage = () => {
             </div>
           ))}
         </Slider>
-        <p className='my-4'>GoodDay Hostels</p>
+        </div>
       </div>
 
       <div className="rightSide1">
         <h2 className="heading1">Hello There</h2>
-        <p className="subHeading1">Sign in and get started with Hostel Management</p>
+        <p className="subHeading1">Sign in With GoodDay </p>
         <form className="form1" onSubmit={handleLogin}>
           <div className="inputGroup1">
             <input
@@ -100,6 +107,7 @@ const LoginPage = () => {
           </div>
         </form>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 };
