@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function SelectedFoodAdmin() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const [foodSummary, setFoodSummary] = useState([]);
 
   useEffect(() => {
     const fetchFoodSummary = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/admin/selected-food', { headers: { Authorization: `Bearer ${token}` }});
+        const response = await axios.get(
+          "http://localhost:5000/admin/selected-food",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
         setFoodSummary(response.data);
       } catch (error) {
-        console.error('Failed to fetch food summary', error);
+        console.error("Failed to fetch food summary", error);
       }
     };
 
@@ -22,25 +25,30 @@ function SelectedFoodAdmin() {
 
   const handleRefresh = async () => {
     try {
-      await axios.post('http://localhost:5000/admin/refresh-food-selection',{}, { headers: { Authorization: `Bearer ${token}` }});
+      await axios.post(
+        "http://localhost:5000/admin/refresh-food-selection",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setFoodSummary([]);
-      toast.success('Food selection data has been refreshed.');
+      toast.success("Food selection data has been refreshed.");
     } catch (error) {
-      console.error('Failed to refresh food selection data', error);
-      toast.error('Failed to refresh data');
+      console.error("Failed to refresh food selection data", error);
+      toast.error("Failed to refresh data");
     }
   };
 
   return (
-    <div className="container my-5">
+    <div className="container my-5"
+    style={{overflowX:"Scroll"}}>
       <h2 className="mb-4 text-center">Food Selection Summary</h2>
       <div className="table-container">
         <table className="table table-striped table-hover">
           <thead className="thead-dark">
             <tr>
-              <th>Meal Type</th>
-              <th>Food Item</th>
-              <th>Number of Selections</th>
+              <th style={{ backgroundColor: "gray"}}>Meal Type</th>
+              <th style={{ backgroundColor: "gray"}}>Food Item</th>
+              <th style={{ backgroundColor: "gray"}}>Number of Selections</th>
             </tr>
           </thead>
           <tbody>
@@ -55,9 +63,21 @@ function SelectedFoodAdmin() {
         </table>
       </div>
       <div className="text-center mt-4">
-        <button className="btn btn-danger btn-lg" onClick={handleRefresh}>Refresh Data</button>
+        <button className="btn btn-danger btn-lg" onClick={handleRefresh}>
+          Refresh Data
+        </button>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

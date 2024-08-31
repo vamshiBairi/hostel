@@ -17,17 +17,18 @@ function StudentDashboard() {
   };
 
   return (
-    <div>
+    <div style={{overflowX:'hidden',
+      width:'100%'
+    }}>
       <nav
         className="navbar navbar-expand-lg navbar-light"
         style={{ background: "#5EA285" }}
       >
         <Link
           className="navbar-brand mx-4 fs-3"
-          to="/"
-          style={{ fontFamily: "Kavoon" }}
+          to="/student-dashboard"
         >
-          GoodDay
+          <img src={"/logo9.jpg"} alt="GoodDay Logo" style={{ height: "50px" , borderRadius:"10px"}} /> 
         </Link>
         <button
           className="navbar-toggler"
@@ -95,7 +96,7 @@ function StudentDashboard() {
       <Bottom />
       <ToastContainer
         position="top-right"
-        autoClose={2000}
+        autoClose={1000}
         hideProgressBar={false}
         newestOnTop
         closeOnClick

@@ -50,7 +50,6 @@ const AdminLogin = () => {
         console.log('Login successful');
       } else {
         toast.error(data.message);
-        // setError(data.message || 'Login failed');
       }
     } catch (error) {
       toast.error("Login failed");
@@ -78,8 +77,8 @@ const AdminLogin = () => {
       </div>
 
       <div className="rightSide1">
-        <h2 className="heading1">Hello There</h2>
-        <p className="subHeading1">Sign in With GoodDay </p>
+        <h2 className="heading1">Welcome, Admin!</h2>
+        <p className="subHeading1">Sign In to Continue the Journey. </p>
         <form className="form1" onSubmit={handleLogin}>
           <div className="inputGroup1">
             <input

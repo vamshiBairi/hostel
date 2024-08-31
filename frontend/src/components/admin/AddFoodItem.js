@@ -1,36 +1,40 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { FaAppleAlt } from 'react-icons/fa';
-import { MdRestaurantMenu } from 'react-icons/md';
-import { BsCardText } from 'react-icons/bs';
-import { FiLink } from 'react-icons/fi';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import axios from "axios";
+import { FaAppleAlt } from "react-icons/fa";
+import { MdRestaurantMenu } from "react-icons/md";
+import { BsCardText } from "react-icons/bs";
+import { FiLink } from "react-icons/fi";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddFoodItem() {
-  const [mealType, setMealType] = useState('');
-  const [foodItem, setFoodItem] = useState('');
-  const [itemDescription, setItemDescription] = useState(['']);
-  const [imageUrl, setImageUrl] = useState('');
+  const [mealType, setMealType] = useState("");
+  const [foodItem, setFoodItem] = useState("");
+  const [itemDescription, setItemDescription] = useState([""]);
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleAddFoodItem = async (e) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/admin/add-food-item', {
-        mealType,
-        foodItem,
-        items:itemDescription,
-        imageUrl
-      }, { headers: { Authorization: `Bearer ${token}` }});
-      toast.success('Successfully Added Food Item');
+      const response = await axios.post(
+        "http://localhost:5000/admin/add-food-item",
+        {
+          mealType,
+          foodItem,
+          items: itemDescription,
+          imageUrl,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Successfully Added Food Item");
       console.log(response.data);
-      setMealType('');
-      setFoodItem('');
-      setItemDescription(['']);
-      setImageUrl('');
+      setMealType("");
+      setFoodItem("");
+      setItemDescription([""]);
+      setImageUrl("");
     } catch (error) {
-      toast.error('Failed to Add');
-      console.error('Adding food item failed', error);
+      toast.error("Failed to Add");
+      console.error("Adding food item failed", error);
     }
   };
 
@@ -41,7 +45,7 @@ function AddFoodItem() {
   };
 
   const handleAddDescriptionField = () => {
-    setItemDescription([...itemDescription, '']);
+    setItemDescription([...itemDescription, ""]);
   };
 
   const handleRemoveDescriptionField = (index) => {
@@ -50,30 +54,35 @@ function AddFoodItem() {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
+      className="d-flex justify-content-center align-items-center"
       style={{
-        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)',
-        minHeight: '100vh',
-        width:'100%',
-        padding: '20px',
-        margin: '0',
+        background: "linear-gradient(150deg,#E6F0DC, #94DEA5)",
+        minHeight: "100vh",
+        width: "100%",
+        padding: "20px",
+        margin: "0",
+        overflowY:"Scroll"
       }}
     >
       <div
         className="card p-4 shadow-sm"
         style={{
-          backgroundColor: '#94DEA5 ',
-          borderRadius: '15px',
-          width: '100%',
-          maxWidth: '500px'
+          backgroundColor: "#94DEA5 ",
+          borderRadius: "15px",
+          width: "100%",
+          maxWidth: "500px",
         }}
       >
-        <h2 className="mb-4 text-center" style={{ color: '#023D54' }}>
+        <h2 className="mb-4 text-center" style={{ color: "#023D54" }}>
           Add Food Item
         </h2>
         <form onSubmit={handleAddFoodItem}>
           <div className="mb-3">
-            <label htmlFor="mealType" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="mealType"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <MdRestaurantMenu className="me-2" /> Meal Type
             </label>
             <select
@@ -90,7 +99,11 @@ function AddFoodItem() {
             </select>
           </div>
           <div className="mb-3">
-            <label htmlFor="foodItem" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="foodItem"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaAppleAlt className="me-2" /> Food Item
             </label>
             <input
@@ -104,7 +117,7 @@ function AddFoodItem() {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label" style={{ color: 'white' }}>
+            <label className="form-label" style={{ color: "white" }}>
               <BsCardText className="me-2" /> Item Description
             </label>
             {itemDescription.map((desc, index) => (
@@ -114,7 +127,9 @@ function AddFoodItem() {
                   className="form-control me-2"
                   placeholder={`Description ${index + 1}`}
                   value={desc}
-                  onChange={(e) => handleDescriptionChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleDescriptionChange(index, e.target.value)
+                  }
                   required
                 />
                 <button
@@ -135,7 +150,11 @@ function AddFoodItem() {
             </button>
           </div>
           <div className="mb-3">
-            <label htmlFor="imageUrl" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="imageUrl"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FiLink className="me-2" /> Image URL
             </label>
             <input
@@ -151,14 +170,23 @@ function AddFoodItem() {
           <button
             type="submit"
             className="btn btn-primary w-100"
-            style={{ backgroundColor: '#023D54', borderColor: 'black' }}
+            style={{ backgroundColor: "#023D54", borderColor: "black" }}
           >
             Add Food Item
           </button>
         </form>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

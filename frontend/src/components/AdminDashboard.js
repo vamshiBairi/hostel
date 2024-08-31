@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes, Link ,useNavigate} from "react-router-dom";
+import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import AddStudent from "./admin/AddStudent";
 import AddFoodItem from "./admin/AddFoodItem";
 import ViewStudents from "./admin/ViewStudents";
@@ -7,19 +7,17 @@ import ViewComplaints from "./admin/ViewComplaints";
 import MakeAnnouncement from "./admin/MakeAnnouncements";
 import SelectedFoodAdmin from "./admin/SelectedFood";
 import ViewMenu from "./admin/ViewMenu";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-function  AdminDashboard() {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+function AdminDashboard() {
   const navigate = useNavigate();
-  const handlelogout=()=>{
-    localStorage.removeItem('token');
-    toast.success('Successfully logged out');
-    setTimeout(()=>{
-
-      navigate('/');
-    },1000)
-    
-  }
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    toast.success("Successfully logged out");
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
 
   return (
     <div>
@@ -27,12 +25,12 @@ function  AdminDashboard() {
         className="navbar navbar-expand-lg navbar-light"
         style={{ background: "#5EA285" }}
       >
-        <Link
-          className="navbar-brand mx-4 fs-3"
-          to="/"
-          style={{ fontFamily: "Kavoon" }}
-        >
-          GoodDay
+        <Link className="navbar-brand mx-4 fs-3" to="/admin">
+          <img
+            src={"/logo9.jpg"}
+            alt="GoodDay Logo"
+            style={{ height: "50px", borderRadius: "10px" }}
+          />
         </Link>
         <button
           className="navbar-toggler"
@@ -150,8 +148,17 @@ function  AdminDashboard() {
         <Route path="/selected-food" element={<SelectedFoodAdmin />} />
         <Route path="/make-announcement" element={<MakeAnnouncement />} />
       </Routes>
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const studentSchema = new mongoose.Schema({
   name: {
@@ -23,9 +23,8 @@ const studentSchema = new mongoose.Schema({
   },
 });
 
-// Hash password before saving
-studentSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+studentSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
   }
   const salt = await bcrypt.genSalt(10);
@@ -33,9 +32,8 @@ studentSchema.pre('save', async function (next) {
   next();
 });
 
-// Compare password for login
 studentSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model('Student', studentSchema);
+module.exports = mongoose.model("Student", studentSchema);

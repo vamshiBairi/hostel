@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const announcementSchema = new mongoose.Schema({
   title: {
@@ -15,4 +15,4 @@ const announcementSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Announcement', announcementSchema);
+module.exports = mongoose.model("Announcement", announcementSchema);

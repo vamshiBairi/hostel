@@ -1,59 +1,74 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { FaUser, FaEnvelope, FaPhone, FaDoorClosed, FaLock } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState } from "react";
+import axios from "axios";
+import {
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaDoorClosed,
+  FaLock,
+} from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function AddStudent() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [roomNumber, setRoomNumber] = useState('');
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [roomNumber, setRoomNumber] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleAddStudent = async (e) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/admin/add-student', { name, email, phone, roomNumber, password }, { headers: { Authorization: `Bearer ${token}` }});
-      toast.success('Successfully Added');
+      const response = await axios.post(
+        "http://localhost:5000/admin/add-student",
+        { name, email, phone, roomNumber, password },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Successfully Added");
       console.log(response.data);
-      setName('');
-      setPassword('');
-      setRoomNumber('');
-      setPhone('');
-      setEmail('');
+      setName("");
+      setPassword("");
+      setRoomNumber("");
+      setPhone("");
+      setEmail("");
     } catch (error) {
       toast.error(error.response.data.message);
-      console.error('Adding student failed', error);
+      console.error("Adding student failed", error);
     }
   };
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center vh-100"
+      className="d-flex justify-content-center align-items-center "
       style={{
-        background: 'linear-gradient(150deg,#E6F0DC, #94DEA5)', // Match gradient from ViewComplaints
-        minHeight: '100vh',
-        width :'100%',
-        padding: '20px',
-        margin: '0',
+        background: "linear-gradient(150deg,#E6F0DC, #94DEA5)", 
+        minHeight: "100vh",
+        width: "100%",
+        padding: "20px",
+        margin: "0",
+        overflowY:"Scroll"
       }}
     >
       <div
         className="card p-4 shadow-sm"
         style={{
-          backgroundColor: '#94DEA5 ',
-          borderRadius: '15px',
-          width: '100%',
-          maxWidth: '500px'
+          backgroundColor: "#94DEA5 ",
+          borderRadius: "15px",
+          width: "100%",
+          maxWidth: "500px",
         }}
       >
-        <h2 className="mb-4 text-center" style={{ color: '#023D54' }}>
+        <h2 className="mb-4 text-center" style={{ color: "#023D54" }}>
           Enter Student Details
         </h2>
         <form onSubmit={handleAddStudent}>
           <div className="mb-3">
-            <label htmlFor="studentName" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="studentName"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaUser className="me-2" /> Name
             </label>
             <input
@@ -67,7 +82,11 @@ function AddStudent() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="studentEmail" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="studentEmail"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaEnvelope className="me-2" /> Email
             </label>
             <input
@@ -81,7 +100,11 @@ function AddStudent() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="studentPhone" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="studentPhone"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaPhone className="me-2" /> Phone
             </label>
             <input
@@ -95,7 +118,11 @@ function AddStudent() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="studentRoomNumber" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="studentRoomNumber"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaDoorClosed className="me-2" /> Room Number
             </label>
             <input
@@ -109,7 +136,11 @@ function AddStudent() {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="studentPassword" className="form-label" style={{ color: 'white' }}>
+            <label
+              htmlFor="studentPassword"
+              className="form-label"
+              style={{ color: "white" }}
+            >
               <FaLock className="me-2" /> Password
             </label>
             <input
@@ -125,14 +156,23 @@ function AddStudent() {
           <button
             type="submit"
             className="btn btn-primary w-100"
-            style={{ backgroundColor: '#023D54', borderColor: 'black' }}
+            style={{ backgroundColor: "#023D54", borderColor: "black" }}
           >
             Add Student
           </button>
         </form>
       </div>
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

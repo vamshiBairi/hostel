@@ -56,7 +56,6 @@ const LoginPage = () => {
       }
     } catch (error) {
       toast.error("Login failed");
-      // setError('Something went wrong. Please try again later.');
     }
   };
 
