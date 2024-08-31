@@ -11,7 +11,13 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin:[""],
+    methods:["POST","GET"],
+    credentials:true
+  }
+));
 
 const adminRoutes = require('./routes/admin');
 const studentRoutes = require('./routes/student');

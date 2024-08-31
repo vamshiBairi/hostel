@@ -13,7 +13,7 @@ function ViewStudents() {
     const fetchStudents = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/admin/view-students",
+          "https://hostel-api.vercel.app/admin/view-students",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setStudents(response.data);
@@ -30,7 +30,7 @@ function ViewStudents() {
   const handleDelete = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/admin/remove-student/${id}`,
+        `https://hostel-api.vercel.app/admin/remove-student/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

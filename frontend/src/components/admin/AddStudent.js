@@ -21,7 +21,7 @@ function AddStudent() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/admin/add-student",
+        "https://hostel-api.vercel.app/admin/add-student",
         { name, email, phone, roomNumber, password },
         { headers: { Authorization: `Bearer ${token}` } }
       );

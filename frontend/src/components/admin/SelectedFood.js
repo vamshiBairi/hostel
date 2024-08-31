@@ -11,7 +11,7 @@ function SelectedFoodAdmin() {
     const fetchFoodSummary = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/admin/selected-food",
+          "https://hostel-api.vercel.app/admin/selected-food",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setFoodSummary(response.data);
@@ -26,7 +26,7 @@ function SelectedFoodAdmin() {
   const handleRefresh = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/admin/refresh-food-selection",
+        "https://hostel-api.vercel.app/admin/refresh-food-selection",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

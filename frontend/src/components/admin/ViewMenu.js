@@ -12,7 +12,7 @@ function ViewMenu() {
     const fetchFoodItems = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/admin/view-menu",
+          "https://hostel-api.vercel.app/admin/view-menu",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setFoodItems(response.data);
@@ -30,7 +30,7 @@ function ViewMenu() {
   const handleDeleteMeal = async (id) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/admin/remove-food-item/${id}`,
+        `https://hostel-api.vercel.app/admin/remove-food-item/${id}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
