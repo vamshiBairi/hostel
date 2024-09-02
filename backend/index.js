@@ -21,4 +21,4 @@ app.use('/student', studentRoutes);
 app.listen(process.env.PORT||5000,()=>{
     console.log("Server started");
 })
-module.exports = app;
+
