@@ -100,7 +100,7 @@ const AdminLogin = () => {
               required
             />
           </div>
-          {error && <p className="error">{error}</p>}
+          {error && <p className="error" style={{color:"red"}}>{error}</p>}
           <div className="inputGroup1">
             <button type="submit" className="button1">
               Sign In
