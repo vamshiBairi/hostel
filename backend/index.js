@@ -12,7 +12,9 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 console.log("Backend started");
+
 const adminRoutes = require('./routes/admin');
 const studentRoutes = require('./routes/student');
 
