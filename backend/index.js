@@ -9,11 +9,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
-app.use(cors({
-  origin: 'https://goodday-hostels.vercel.app', 
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true 
-}));
+app.use(cors());
 
 console.log("Backend started");
 
