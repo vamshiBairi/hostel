@@ -2,11 +2,11 @@ const FoodMenu = require("../models/FoodMenu");
 const FoodSelection = require("../models/FoodSelection");
 const Complaint = require("../models/Complaint");
 const Announcement = require("../models/Announcement");
-const Student = require("../models/Student");
+const Student = require("../models/StudentModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
-const student = require("../models/Student");
+const student = require("../models/StudentModel");
 
 dotenv.config();
 
