@@ -14,7 +14,7 @@ const {
   viewcount,
   removeComplaint,
   removeStudent,
-} = require("../controllers/adminController");
+} = require("../controllers/adminController1");
 const authMiddleware = require("../utils/authMiddleware");
 const validateRequest = require("../utils/validateRequest");
 const FoodSelection = require("../models/FoodSelectionModel");

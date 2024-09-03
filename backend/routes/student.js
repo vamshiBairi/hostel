@@ -6,7 +6,7 @@ const {
   selectMeal,
   raiseComplaint,
   receiveAnnouncements,
-} = require("../controllers/studentController");
+} = require("../controllers/studentController1");
 const authMiddleware = require("../utils/authMiddleware");
 const validateRequest = require("../utils/validateRequest");
 
