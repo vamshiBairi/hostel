@@ -1,8 +1,8 @@
 const Student = require("../models/StudentModel");
-const Announcement = require("../models/Announcement");
-const Complaint = require("../models/Complaint");
-const FoodMenu = require("../models/FoodMenu");
-const FoodSelection = require("../models/FoodSelection");
+const Announcement = require("../models/AnnouncementModel");
+const Complaint = require("../models/ComplaintModel");
+const FoodMenu = require("../models/FoodMenuModel");
+const FoodSelection = require("../models/FoodSelectionModel");
 const { authenticateAdmin } = require("../utils/authMiddleware");
 
 const loginAdmin = (req, res) => {

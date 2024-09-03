@@ -17,7 +17,7 @@ const {
 } = require("../controllers/adminController");
 const authMiddleware = require("../utils/authMiddleware");
 const validateRequest = require("../utils/validateRequest");
-const FoodSelection = require("../models/FoodSelection");
+const FoodSelection = require("../models/FoodSelectionModel");
 
 router.post("/login", validateRequest, loginAdmin);
 
