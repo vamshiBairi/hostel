@@ -14,7 +14,7 @@ function ViewComplaints() {
     const fetchComplaints = async () => {
       try {
         const response = await axios.get(
-          "https://hostel-api.vercel.app/admin/complaints",
+          "https://hostel-api-vu1f.onrender.com/admin/complaints",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -46,7 +46,7 @@ function ViewComplaints() {
   const deleteComplaint = async (id) => {
     try {
       const response = await axios.post(
-        `https://hostel-api.vercel.app/admin/remove-complaint/${id}`,
+        `https://hostel-api-vu1f.onrender.com/admin/remove-complaint/${id}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +69,7 @@ function ViewComplaints() {
 
     try {
       await axios.put(
-        `https://hostel-api.vercel.app/admin/update-complaint-status/${id}`,
+        `https://hostel-api-vu1f.onrender.com/admin/update-complaint-status/${id}`,
         { status },
         {
           headers: { Authorization: `Bearer ${token}` },

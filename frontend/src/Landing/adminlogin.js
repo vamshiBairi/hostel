@@ -34,7 +34,7 @@ const AdminLogin = () => {
     setError('');
 
     try {
-      const response = await fetch('https://hostel-api.vercel.app/admin/login', {
+      const response = await fetch('https://hostel-api-vu1f.onrender.com/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

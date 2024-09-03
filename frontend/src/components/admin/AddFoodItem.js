@@ -17,7 +17,7 @@ function AddFoodItem() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://hostel-api.vercel.app/admin/add-food-item",
+        "https://hostel-api-vu1f.onrender.com/admin/add-food-item",
         {
           mealType,
           foodItem,

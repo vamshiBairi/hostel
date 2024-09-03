@@ -36,7 +36,7 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await fetch('https://hostel-api.vercel.app/student/login', {
+      const response = await fetch('https://hostel-api-vu1f.onrender.com/student/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

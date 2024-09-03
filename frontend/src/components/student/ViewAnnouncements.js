@@ -11,7 +11,7 @@ function ViewAnnouncements() {
     const fetchAnnouncements = async () => {
       try {
         const response = await axios.get(
-          "https://hostel-api.vercel.app/student/announcements",
+          "https://hostel-api-vu1f.onrender.com/student/announcements",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setAnnouncements(response.data);

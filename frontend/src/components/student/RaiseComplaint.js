@@ -12,7 +12,7 @@ function RaiseComplaint() {
 
     try {
       const response = await axios.post(
-        "https://hostel-api.vercel.app/student/raise-complaint",
+        "https://hostel-api-vu1f.onrender.com/student/raise-complaint",
         { complaintText },
         { headers: { Authorization: `Bearer ${token}` } }
       );

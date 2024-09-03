@@ -13,7 +13,7 @@ function MakeAnnouncement() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://hostel-api.vercel.app/admin/make-announcement",
+        "https://hostel-api-vu1f.onrender.com/admin/make-announcement",
         {
           title,
           content,
